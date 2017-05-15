@@ -30,6 +30,7 @@ public class SessionEventListener {
       .ifPresent(user -> {
         chatService.broadcast(Message.from("System", "Welcome " + user.getDisplayName()));
         participantRepo.add(user);
+        chatService.broadcast("/app/participants", participantRepo.getParticipants());
       });
   }
 
@@ -39,6 +40,7 @@ public class SessionEventListener {
       .ifPresent(user -> {
         chatService.broadcast(Message.from("System", "Goodbye " + user.getDisplayName()));
         participantRepo.remove(user);
+        chatService.broadcast("/app/participants", participantRepo.getParticipants());
       });
   }
 }
