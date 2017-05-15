@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
-import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
 import com.rydogs.springboot.chat.data.ParticipantRepository;
 import com.rydogs.springboot.chat.data.model.Message;
@@ -25,7 +25,7 @@ public class SessionEventListener {
   }
 
   @EventListener
-  public void onSubscribe(SessionSubscribeEvent event) {
+  public void onSubscribe(SessionConnectEvent event) {
     User.from(event.getUser())
       .ifPresent(user -> {
         chatService.broadcast(Message.from("System", "Welcome " + user.getDisplayName()));
