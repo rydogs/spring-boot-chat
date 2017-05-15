@@ -17,7 +17,11 @@ public class ChatService {
     messagingTemplate.convertAndSendToUser(user, "/topic/messages", message);
   }
 
-  public void broadcast(Message message) {
-    messagingTemplate.convertAndSend("/topic/messages", message);
+  public void broadcast(Object message) {
+    broadcast("/topic/messages", message);
+  }
+
+  public void broadcast(String topic, Object message) {
+    messagingTemplate.convertAndSend(topic, message);
   }
 }

@@ -37,7 +37,7 @@ public class SessionEventListener {
   public void onSubscribe(SessionDisconnectEvent event) {
     User.from(event.getUser())
       .ifPresent(user -> {
-        chatService.broadcast(Message.from("System", "Goodbye" + user.getDisplayName()));
+        chatService.broadcast(Message.from("System", "Goodbye " + user.getDisplayName()));
         participantRepo.remove(user);
       });
   }
