@@ -34,7 +34,13 @@ angular.module("app", []).controller("home", function($scope, $http) {
                 $scope.messages.push(JSON.parse(message.body));
                 $scope.$digest();
             });
+            //initial participants list
             stompClient.subscribe("/app/participants", function(message) {
+                $scope.participants = JSON.parse(message.body);
+                $scope.$digest();
+            });
+            //keep participants list up-to-date
+            stompClient.subscribe("/topic/participants", function(message) {
                 $scope.participants = JSON.parse(message.body);
                 $scope.$digest();
             });
